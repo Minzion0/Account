@@ -1,16 +1,31 @@
-package com.example.account;
+package com.example.account.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.example.account.domain.Account;
+import com.example.account.type.AccountStatus;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class AccountDto {
-    private String accountNumber;
-    private String nickname;
-    private LocalDateTime registeredAt;
+  private Long userId;
+  private String accountNumber;
+  private Long balance;
+
+  private LocalDateTime registeredAt;
+  private LocalDateTime unRegisteredAt;
+
+  public static AccountDto fromEntity(Account account){
+      return AccountDto.builder()
+              .userId(account.getAccountUser().getId())
+              .accountNumber(account.getAccountNumber())
+              .balance(account.getBalance())
+              .registeredAt(account.getRegisteredAt())
+              .unRegisteredAt(account.getUnRegisteredAt())
+              .build();
+  }
 }

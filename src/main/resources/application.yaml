@@ -1,1 +1,23 @@
-spring.application.name=Account
+spring:
+  redis:
+    port: 6379
+    host: localhost
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+#    defer-datasource-initialization: true ???? ??? data.sql? ??? ???? ????? ???? sql? ??????
+    defer-datasource-initialization: true
+    database-platform: H2
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true

@@ -6,15 +6,14 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-public class UseBalance {
+public class CancelBalance {
 
     @Getter
     @Setter
     @AllArgsConstructor
     public static class Request{
-        @NotNull
-        @Min(1)
-        private Long userId;
+        @NotBlank
+        private String  transactionId;
 
         @NotBlank
         @Size(min = 10,max = 10)
@@ -38,8 +37,8 @@ public class UseBalance {
         private Long amount;
         private LocalDateTime transactedAt;
 
-        public static UseBalance.Response from(TransactionDto transactionDto){
-         return  UseBalance.Response.builder()
+        public static CancelBalance.Response from(TransactionDto transactionDto){
+         return  CancelBalance.Response.builder()
                     .accountNumber(transactionDto.getAccountNumber())
                     .transactionResult(transactionDto.getTransactionResultType())
                     .transactionId(transactionDto.getTransactionId())
