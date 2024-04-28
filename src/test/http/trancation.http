@@ -7,3 +7,13 @@ Content-Type: application/json
   "accountNumber": "1000000000",
   "amount": 100
 }
+
+###거래 취소
+POST http://localhost:8080/transaction/cancel
+Content-Type: application/json
+
+{
+  "transactionId":"3cedee3d667546f9986c224eb30e0df8",
+  "accountNumber": "1000000000",
+  "amount": 100
+}

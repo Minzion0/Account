@@ -43,8 +43,8 @@ class AccountServiceTest {
     void creatAccountSuccess() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.of(
@@ -74,8 +74,8 @@ class AccountServiceTest {
     void creatFirstAccountSuccess() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.of(
@@ -104,8 +104,8 @@ class AccountServiceTest {
     void creattAccountUserNotFound() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.empty());
@@ -124,8 +124,9 @@ class AccountServiceTest {
     void createAccount_maxAccountIs10() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
+
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(accountUser));
 
@@ -141,8 +142,8 @@ class AccountServiceTest {
     void deleteAccountSuccess() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(accountUser));
 
@@ -169,8 +170,8 @@ class AccountServiceTest {
     void deleteAccount_UserNotFound() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.empty());
@@ -189,8 +190,8 @@ class AccountServiceTest {
     void deleteAccount_AccountNotFound() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.of(accountUser));
@@ -210,11 +211,11 @@ class AccountServiceTest {
     void deleteAccountFailed_userUnMathch() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         AccountUser accountUser2 = AccountUser.builder()
-                .id(13L)
                 .name("ppp").build();
+        accountUser2.setId(13L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(Optional.of(accountUser));
 
@@ -237,8 +238,8 @@ class AccountServiceTest {
     void deleteAccountFailed_NotEmpty_balance() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.of(
@@ -263,8 +264,8 @@ class AccountServiceTest {
     void deleteAccountFailed_account_unregistered() {
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         given(accountUserRepository.findById(anyLong()))
                 .willReturn(
                         Optional.of(
@@ -287,8 +288,8 @@ class AccountServiceTest {
     void successGetAccountsByUserId(){
         //given
         AccountUser accountUser = AccountUser.builder()
-                .id(12L)
                 .name("pobi").build();
+        accountUser.setId(12L);
         List<Account> accounts =
                 Arrays.asList(
                         Account.builder()
