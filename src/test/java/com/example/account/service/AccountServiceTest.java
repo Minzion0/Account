@@ -49,11 +49,7 @@ class AccountServiceTest {
                 .willReturn(
                         Optional.of(
                                 accountUser));
-        given(accountRepository.findFirstByOrderByIdDesc())
-                .willReturn(Optional.of(
-                        Account.builder()
-                                .accountNumber("1000000012")
-                                .build()));
+
         given(accountRepository.save(any())).willReturn(
                 Account.builder()
                         .accountUser(accountUser)
@@ -66,7 +62,7 @@ class AccountServiceTest {
         //then
         verify(accountRepository, times(1)).save(captor.capture());
         assertEquals(accountUser.getId(), accountDto.getUserId());
-        assertEquals("1000000013", captor.getValue().getAccountNumber());
+
 
     }
 
@@ -80,8 +76,7 @@ class AccountServiceTest {
                 .willReturn(
                         Optional.of(
                                 accountUser));
-        given(accountRepository.findFirstByOrderByIdDesc())
-                .willReturn(Optional.empty());
+
         given(accountRepository.save(any())).willReturn(
                 Account.builder()
                         .accountUser(accountUser)
@@ -94,7 +89,6 @@ class AccountServiceTest {
         //then
         verify(accountRepository, times(1)).save(captor.capture());
         assertEquals(accountUser.getId(), accountDto.getUserId());
-        assertEquals("1000000000", captor.getValue().getAccountNumber());
 
     }
 

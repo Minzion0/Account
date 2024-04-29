@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.example.account.type.ErrorCode.*;
@@ -35,12 +37,11 @@ public class AccountService {
     @Transactional
     public AccountDto createAccount(Long userId, Long initialBalance) {
         AccountUser accountUser = getAccountUser(userId);
+
         //유저 계좌수 체크
         validateCreateAccount(accountUser);
 
-        String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
-                .map(account -> (Integer.parseInt(account.getAccountNumber())) + 1 + "")
-                .orElse("1000000000");
+        String newAccountNumber = createAccountNumber();
 
 
         return AccountDto.fromEntity(
@@ -53,6 +54,26 @@ public class AccountService {
                                 .registeredAt(LocalDateTime.now())
                                 .build())
         );
+    }
+
+    //10자리의 계좌번호 랜덤 생성 메소드
+    private String createAccountNumber() {
+        boolean chackAccountNumber =true;
+        String newAccountNumber=null;
+        SecureRandom secureRandom = new SecureRandom();
+        //Math.random 보다 강력한 난수를 생성해주는 클래스 왜? random= 48비트,SecureRandom= 최대128비트
+        final int MIN_ACCOUNT_NUM = 900_000_000;
+        final int MAX_ACCOUNT_NUM =1_000_000_000;
+
+        while (chackAccountNumber){
+            newAccountNumber = String.valueOf(secureRandom.nextInt(MIN_ACCOUNT_NUM) + MAX_ACCOUNT_NUM);
+            Optional<Account> byAccountNumber = accountRepository.findByAccountNumber(newAccountNumber);
+            if (byAccountNumber.isEmpty()){
+                chackAccountNumber=false;
+            }
+
+        }
+        return newAccountNumber;
     }
 
     private void validateCreateAccount(AccountUser accountUser) {
