@@ -58,18 +58,19 @@ public class AccountService {
 
     //10자리의 계좌번호 랜덤 생성 메소드
     private String createAccountNumber() {
-        boolean chackAccountNumber =true;
+
+        boolean checkAccountNumber =true;
         String newAccountNumber=null;
         SecureRandom secureRandom = new SecureRandom();
         //Math.random 보다 강력한 난수를 생성해주는 클래스 왜? random= 48비트,SecureRandom= 최대128비트
         final int MIN_ACCOUNT_NUM = 900_000_000;
         final int MAX_ACCOUNT_NUM =1_000_000_000;
 
-        while (chackAccountNumber){
+        while (checkAccountNumber){
             newAccountNumber = String.valueOf(secureRandom.nextInt(MIN_ACCOUNT_NUM) + MAX_ACCOUNT_NUM);
             Optional<Account> byAccountNumber = accountRepository.findByAccountNumber(newAccountNumber);
             if (byAccountNumber.isEmpty()){
-                chackAccountNumber=false;
+                checkAccountNumber=false;
             }
 
         }
